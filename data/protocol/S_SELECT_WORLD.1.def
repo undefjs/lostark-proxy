@@ -1,0 +1,9 @@
+int64 counter
+int64 unk1
+int32 result
+int64 unk2
+int16 unk3_1
+string worldIP1
+int16 unk3_2
+string worldIP2
+int32 unk4

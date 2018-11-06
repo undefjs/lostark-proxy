@@ -1,0 +1,27 @@
+int64 counter
+int64 unk1
+int32 result
+string version
+int16 unk2
+string unk3
+int16 unk4
+string unk5
+int16 unkk1
+byte unkk2
+
+count servers
+array servers
+- string name
+- byte k1
+- byte k2
+- int16 k3
+- int16 id1
+- byte k4
+- byte id2
+- int16 k5
+
+uint64 b1
+uint64 b2
+uint64 b3
+uint64 b4
+uint64 b5

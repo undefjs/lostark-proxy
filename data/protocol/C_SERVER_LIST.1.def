@@ -1,0 +1,6 @@
+int64 counter
+int64 unk1
+int32 unk2
+int32 unk3
+string token #not null terminated
+#bytes

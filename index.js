@@ -50,7 +50,7 @@ function createWorldWrappers(remoteWorlds) {
       options: {
         ...makeOpts('WORLD' + i),
         remoteHost: host,
-        remotePort: port | 0,
+        remotePort: port >>> 0,
       },
       dispatch: cb,
       isWorld: true

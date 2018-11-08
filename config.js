@@ -1,5 +1,5 @@
 'use strict';
-//client loginServer offset => [7FF6B852BC14]
+//client loginServer offset => [7FF78378B1D4]
 
 const config = {
   LOCAL_LOGIN_PORT: 6010,

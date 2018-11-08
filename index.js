@@ -12,18 +12,21 @@ function makeOpts(name) {
   };
 }
 
+const getLocalAddress = which => Config[`LOCAL_WORLD${which}_HOST`] +
+  ":" + Config[`LOCAL_WORLD${which}_PORT`];
+
 function loginCb(name, event) {
-  if (name === 'S_SERVER_LIST') {
-    for (const s of event.servers) {
-      s.name += '(Proxy)';
-    }
-    return true;
-  }
-  else if (name === 'S_SELECT_WORLD') {
-    this.emit('S_SELECT_WORLD');
-    event.worldIP1 = `${Config.LOCAL_WORLD1_HOST}:${Config.LOCAL_WORLD1_PORT}`;
-    event.worldIP2 = `${Config.LOCAL_WORLD2_HOST}:${Config.LOCAL_WORLD2_PORT}`;
-    return true;
+  switch (name) {
+    case 'S_SERVER_LIST':
+      for (const s of event.servers) {
+        s.name += '(Proxy)';
+      }
+      return true;
+    case 'S_SELECT_WORLD':
+      this.emit('S_SELECT_WORLD');
+      event.worldIP1 = getLocalAddress(1);
+      event.worldIP2 = getLocalAddress(2);
+      return true;
   }
 }
 
@@ -35,16 +38,24 @@ function world2Cb(name, event) {
   
 }
 
-function then(_) {
-  (this.wrapper = new Wrapper('Login', makeOpts('LOGIN'), loginCb)).once(
-    'S_SELECT_WORLD', _
-  );
+function createWorldWrappers() {
+  const world1Wrapper = new Wrapper({
+    name: 'World1', 
+    options: makeOpts('WORLD1'),
+    dispatch: world1Cb,
+    isWorld: true
+  });
+  const world2Wrapper = new Wrapper({
+    name: 'World2', 
+    options: makeOpts('WORLD2'),
+    dispatch: world2Cb,
+    isWorld: true
+  });
 }
 
-void async function() {
-  const login = { then };
-  await login;
-  const loginWrapper = login.wrapper;
-  const world1Wrapper = new Wrapper('World1', makeOpts('WORLD1'), world1Cb);
-  const world2Wrapper = new Wrapper('World2', makeOpts('WORLD2'), world2Cb);
-}().then(null, console.error);
+const loginWrapper = new Wrapper({
+  name: 'Login', 
+  options: makeOpts('LOGIN'),
+  dispatch: loginCb
+});
+loginWrapper.on('S_SELECT_WORLD', createWorldWrappers);

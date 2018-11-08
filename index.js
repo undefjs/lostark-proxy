@@ -13,9 +13,9 @@ function makeOpts(name) {
 }
 
 function loginCb(name, event) {
-  if (name === 'S_SERVER_LIST') {
+  /*if (name === 'S_SERVER_LIST') {
     for (const s of event.servers) {
-      s.name += '(Proxy)';
+      s.name += ' (Proxy)';
     }
     return true;
   }
@@ -24,7 +24,7 @@ function loginCb(name, event) {
     event.worldIP1 = `${Config.LOCAL_WORLD1_HOST}:${Config.LOCAL_WORLD1_PORT}`;
     event.worldIP2 = `${Config.LOCAL_WORLD2_HOST}:${Config.LOCAL_WORLD2_PORT}`;
     return true;
-  }
+  }*/
 }
 
 function world1Cb(name, event) {

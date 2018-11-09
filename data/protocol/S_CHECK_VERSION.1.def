@@ -1,4 +1,5 @@
-int64 counter
-int64 unk1
-int32 unk2
+uint64 counter
+uint64 unk1
+uint32 unk2
+uint16 unk3
 string version

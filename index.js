@@ -19,13 +19,16 @@ function loginCb(name, event) {
   switch (name) {
     case 'S_SERVER_LIST':
       for (const s of event.servers) {
-        s.name += '(Proxy)';
+        s.name += ' (Proxy)';
+        s.len = s.name.length;
       }
       return true;
     case 'S_SELECT_WORLD':
       this.emit('S_SELECT_WORLD', [event.worldIP1, event.worldIP2]);
       event.worldIP1 = getLocalAddress(1);
+      event.len1 = event.worldIP1.length;
       event.worldIP2 = getLocalAddress(2);
+      event.len2 = event.worldIP2.length;
       return true;
   }
 }

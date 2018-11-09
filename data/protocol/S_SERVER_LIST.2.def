@@ -1,0 +1,33 @@
+uint64 counter
+uint64 unk1
+
+uint64 unk2
+
+uint16 unk3
+string unk4
+uint32 unk5
+
+uint16 unk6
+string unk7
+uint16 unk8
+
+string version
+uint16 result
+uint32 unk9
+uint16 unk10
+byte unk11
+uint32 unk12
+uint16 unk13
+
+count servers
+array servers
+- byte id
+- uint16 len
+- string name
+- byte f1
+- byte f2
+- byte f3
+- byte f4
+- byte f5
+- byte f6 # isNew?
+- byte f7

@@ -18,20 +18,27 @@
     file = null;
     fso.DeleteFile(version);
     out = out.substring(1).split('.');
-    out[0] = parseInt(out[0]);
-    out[1] = parseInt(out[1]);
-    if (out[0] < 10 || (out[0] === 10 && out[1] < 4)) {
-      throw new Error('B');
-    }
-    try { shell.Run('cmd /c node "' + cwd + 'update.js"', 1, true); }
-    catch (ignore) {}
-    shell.Run('cmd /c node "' + cwd + 'index.js"', 1, false);
+    out = [out[0] >>> 0, out[1] >>> 0];
   }
   catch (e) {
-    shell.Popup(e);
-    msg = e.message === 'B' ? 'Your Node version is too low' : 'Could not find Node';
+    msg = 'Could not find Node';
     msg += '\nGo to https://nodejs.org/ and install the Latest Current version';
-    shell.Popup(msg, 0, 'Error', 16);
+    shell.Popup(msg, 0, 'Error', 1 << 4);
+  }
+  if (out[0] < 10 || (out[0] === 10 && out[1] < 4)) {
+    msg = 'Your Node version is too low';
+    msg += '\nGo to https://nodejs.org/ and install the Latest Current version';
+    shell.Popup(msg, 0, 'Error', 1 << 4);
+  }
+  else {
+    try {
+      shell.Run('cmd /c node "' + cwd + 'update.js"', 1, true);
+      shell.Run('cmd /c node "' + cwd + 'index.js"', 1, false);
+    }
+    catch (e) {
+      shell.Popup('Unknown error while executing the proxy\n' +
+      'Message: ' + e.message, 0, 'Error', 1 << 4);
+    }
   }
   WScript.Quit();
 @else @*/
